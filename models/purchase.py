@@ -1,4 +1,5 @@
 from extensions import db
+from sqlalchemy.orm import relationship
 
 class Purchase(db.Model):
     __tablename__ = 'purchase'
@@ -8,3 +9,5 @@ class Purchase(db.Model):
     purchase_time = db.Column(db.DateTime, nullable=False)
     teacher_score = db.Column(db.Float, nullable=False)
     student_score = db.Column(db.Float, nullable=False)
+    purchases = relationship('Purchase', backref='user', lazy=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))

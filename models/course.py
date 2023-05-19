@@ -1,4 +1,5 @@
 from extensions import db
+from sqlalchemy.orm import relationship
 
 class Course(db.Model):
     __tablename__ = 'course'
@@ -8,3 +9,6 @@ class Course(db.Model):
     teacher_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     price = db.Column(db.Float, nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    courses_taught = relationship('Course', backref='teacher', lazy=True)
+    purchases = relationship('Purchase', backref='course', lazy=True)
+    sessions = relationship('Session', backref='course', lazy=True)

@@ -1,4 +1,5 @@
 from extensions import db
+from sqlalchemy.orm import relationship
 
 class Session(db.Model):
     __tablename__ = 'session'
@@ -9,3 +10,4 @@ class Session(db.Model):
     start_time = db.Column(db.DateTime, nullable=False)
     end_time = db.Column(db.DateTime, nullable=False)
     recording_url = db.Column(db.String(500))
+    enrollments = relationship('Enrollment', backref='session', lazy=True)

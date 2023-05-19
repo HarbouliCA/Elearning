@@ -20,8 +20,8 @@ database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'elearn
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///elearning.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-# db.init_app(app)
+db.init_app(app)
+
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)

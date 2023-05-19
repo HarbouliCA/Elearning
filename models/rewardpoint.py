@@ -1,4 +1,5 @@
 from extensions import db
+from sqlalchemy.orm import relationship
 
 class RewardPoint(db.Model):
     __tablename__ = 'rewardpoint'
