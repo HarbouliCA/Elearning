@@ -27,27 +27,33 @@ def login_post():
     login_user(user, remember=remember)
     return redirect(url_for('main.profile'))
 
-@auth.route('/signup')
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template('signup.html')
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        password = request.form.get('password')
+        role = request.form.get('role')  # get role from form data
 
-@auth.route('/signup', methods=['POST'])
-def signup_post():
-    email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
+        if role not in ['Teacher', 'Student']:
+            flash('Invalid role.')
+            return redirect(url_for('auth.signup'))
 
-    user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first()
 
-    if user:
-        flash('Email address already exists')
-        return redirect(url_for('auth.signup'))
+        if user:
+            flash('Email address already exists')
+            return redirect(url_for('auth.signup'))
 
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
-    db.session.add(new_user)
-    db.session.commit()
+        new_user = User(email=email, username=name, password=generate_password_hash(password, method='sha256'), role=role)
+        db.session.add(new_user)
+        db.session.commit()
 
-    return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
+    else: # If request is GET show signup page
+        return render_template('signup.html')
+
+
 
 @auth.route('/logout')
 @login_required
