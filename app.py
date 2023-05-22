@@ -12,8 +12,11 @@ from routes.main import main as main_blueprint
 import io
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 app = Flask(__name__)
+app.secret_key = 'Mysecretkey'
+
 # Specify the absolute path to the database file
 app.root_path = os.path.dirname(os.path.abspath(__file__))
 database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'elearning.db')
@@ -22,6 +25,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///elearning.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
