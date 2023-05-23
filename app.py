@@ -9,6 +9,7 @@ from models.purchase import Purchase
 from models.rewardpoint import RewardPoint
 from routes.auth import auth as auth_blueprint
 from routes.main import main as main_blueprint
+from routes import course
 import io
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -34,6 +35,7 @@ def load_user(user_id):
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(main_blueprint)
+app.register_blueprint(course)
 
 first_request = True
 @app.after_request

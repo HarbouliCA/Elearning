@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Create Course</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.title.label }}<br>
+      {{ form.title(size=30) }}
+    </p>
+    <p>
+      {{ form.description.label }}<br>
+      {{ form.description(size=30) }}
+    </p>
+    <p>
+      {{ form.price.label }}<br>
+      {{ form.price(size=30) }}
+    </p>
+    <p>
+      {{ form.category.label }}<br>
+      {{ form.category(size=30) }}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}
