@@ -12,7 +12,10 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
+    if current_user.is_authenticated:  # Check if user is logged in
+        return redirect(url_for('auth.welcome'))  # Redirect to welcome page
     return render_template('index.html')
+
 
 
 @main.route('/create_course', methods=['GET', 'POST'])

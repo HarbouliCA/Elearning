@@ -10,8 +10,7 @@
     <!-- Add your CSS links here -->
 </head>
 <body>
-    <h1>Welcome, {{ name }}, {{ role }}</h1>
-    <p>You are now logged in.</p>
+
     {% if role == "Teacher" %}
     <a href="{{ url_for('main.create_course') }}">Create Course</a>
     <a href="{{ url_for('main.dashboard') }}">View Courses</a>
